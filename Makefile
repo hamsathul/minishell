@@ -6,7 +6,7 @@
 #    By: hkunnam- <hkunnam-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 22:12:42 by hkunnam-          #+#    #+#              #
-#    Updated: 2023/04/04 23:27:14 by hkunnam-         ###   ########.fr        #
+#    Updated: 2023/04/12 13:43:02 by hkunnam-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,23 +21,10 @@ else
 	CFLAGS 		= -Wall -Wextra -Werror
 endif
 
-UNAME_S	:= $(shell uname -s)
-ifeq ($(UNAME_S),Linux)
-	CCFLAGS += -D LINUX
-	LDFLAGS		:= $(LDFLAGS)
-	CPPFLAGS	:= $(CPPFLAGS)
-	LIB_FLAGS	= -lreadline $(LDFLAGS) $(CPPFLAGS)
-endif
-ifeq ($(UNAME_S),Darwin)
-	ifeq ($(LDFLAGS), "FALSE")
-		$(shell $(brew install readline | brew info readline | grep export))
-	else ifeq ($(CPPFLAGS), "FALSE")
-		$(shell $(brew install readline | brew info readline | grep export))
-	endif
-	LDFLAGS		:= $(LDFLAGS)
-	CPPFLAGS	:= $(CPPFLAGS)
-	LIB_FLAGS	= -lreadline $(LDFLAGS) $(CPPFLAGS)
-endif
+LDFLAGS	=	"-L/usr/local/opt/readline/lib" 
+CPPFLAGS	=	"-I/usr/local/opt/readline/include"
+LIB_FLAGS	= -lreadline $(LDFLAGS) $(CPPFLAGS)
+
 
 AR				= ar rcs
 RM				= rm -f
